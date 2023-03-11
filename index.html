@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+
+    const getExhange = async function () {
+        try {
+            const url = "https://api.exchangeratesapi.io/latest?base=USD"
+
+            const result = await fetch(url)
+
+            const data = await result.json()  //json
+            const rate = {
+                'PKR': 983948,
+                'USD': 874
+            }
+
+            document.querySelector('body').innerHTML = `1 USD is equal to ${data.rate['PKR'].toFixed(3)} EUR`
+
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', getExhange)
+
+
+
+</script>
+
+<body>
+
+</body>
+
+</html>

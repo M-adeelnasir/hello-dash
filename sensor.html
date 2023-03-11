@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+
+    const getResult = async function () {
+        try {
+            const url = 'https://sensorthings-wq.brgm-rec.fr/FROST-Server/v1.0/Datastreams'
+
+            const result = await fetch(url)
+
+            const data = await result.json()
+
+            const allSensors = data.value
+            allSensors.map((sensor, i) => {
+
+                const { name, description, } = sensor
+
+                const { code, label } = sensor.properties.medium
+                const { symbol } = sensor.unitOfMeasurement
+
+                console.log(name, description, code, label, symbol);
+
+                const newDiv = document.createElement('div');
+                const divId = `div-${i}`; // create a unique ID for the div
+                newDiv.setAttribute('id', divId); // set the ID attribute of the div
+                document.body.appendChild(newDiv); // add the div to the DOM
+                newDiv.innerHTML = `
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Description:</strong> ${description}</p>
+                <p><strong>Code:</strong> ${code}</p>
+                <p><strong>Label:</strong> ${label}</p>
+                <p><strong>Symbol</strong> ${symbol}</p>
+                <hr/>
+                <br/>
+
+                 `;
+            })
+
+            // console.log(data.value);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    getResult()
+
+</script>
+
+<body>
+    <h1>Sensors Data</h1>
+</body>
+
+</html>
+
+<!-- 0856189001
+
+massod
+
+053 -->

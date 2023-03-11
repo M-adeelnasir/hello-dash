@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelector('form').addEventListener('submit', async function (e) {
+            e.preventDefault(); // Prevent the default behavior of the form submission
+
+            try {
+                const accessKey = 'your_access_key_here';
+                const url = `https://api.exchangeratesapi.io/latest?base=USD&access_key=${accessKey}`;
+                const result = await fetch(url);
+                const data = await result.json();
+
+                const currency = document.querySelector('input').value.toUpperCase();
+                const rate = data.rates[currency];
+                if (rate !== undefined) {
+                    document.querySelector('div').innerHTML = `1 USD is equal to ${rate.toFixed(3)} ${currency}`;
+                } else {
+                    document.querySelector('#result').innerHTML = 'Invalid Currency.';
+                }
+            } catch (err) {
+                console.log(err);
+            }
+        });
+    });
+
+
+
+</script>
+
+<body>
+    <form>
+        <input placeholder="Currency" type="text">
+        <button type="submit">change</button>
+    </form>
+    <div></div>
+</body>
+
+</html>

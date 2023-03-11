@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<script>
+
+
+    const getUsers = async function () {
+
+        try {
+            const apiUrl = 'https://randomuser.me/api/'
+            const result = await fetch(apiUrl)
+            const users = await result.json()
+
+            const { name, email, phone, gender, location } = users.results[0]
+
+            const { first, last } = name
+            const { city, country } = location
+
+            document.querySelector('body').innerHTML = `
+                <p><strong>Name:</strong>${first} ${last}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Phone:</strong> ${phone}</p>
+                <p><strong>Gender:</strong> ${gender}</p>
+                <p><strong>Loc:</strong> ${city} ${country}</p>
+                 `;
+
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    getUsers()
+
+
+</script>
+
+<body>
+
+</html>
